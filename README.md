@@ -2,3 +2,4 @@
 - ``gradle init``
 - defined ``rootProject.name`` in [settings.gradle](./settings.gradle)
 - write [build.gradle](./app/build.gradle)
+- run ``./gradlew build``, so it reads build.gradle, install plugins and dependencies for us along with protoc compiler, then generates stub classes as per proto file. So if we change proto file, we need to run build command again to get generated classes.
