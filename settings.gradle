@@ -1,0 +1,3 @@
+// This file defines settings for the project structure.
+// The rootProject.name specifies the artifact name when Gradle builds files.
+rootProject.name = 'grpc-practice'

@@ -1,0 +1,84 @@
+// 1. PLUGINS SECTION
+// Plugins extend Gradle's capabilities. Here we import the core Java compilation plugin,
+// the Google Protobuf code generation plugin, and the Application runner plugin.
+plugins {
+    id 'java'
+    id 'com.google.protobuf' version '0.9.4'
+    id 'application'
+}
+
+// 2. PROJECT INFORMATION
+// Group name and version of your application (typical Java package conventions)
+group = 'com.example.grpc'
+version = '1.0-SNAPSHOT'
+
+// 3. REPOSITORIES
+// Tells Gradle where to look for Java libraries. Maven Central is the industry standard repository.
+repositories {
+    mavenCentral()
+}
+
+// 4. DEPENDENCIES SECTION
+// Declare the packages/libraries your application needs.
+dependencies {
+    // Netty is the underlying high-performance network transport engine used by gRPC
+    implementation 'io.grpc:grpc-netty-shaded:1.66.0'
+    
+    // Protobuf libraries that map binary messages to Java classes
+    implementation 'io.grpc:grpc-protobuf:1.66.0'
+    
+    // Contains core client API classes like Channels, Stubs, and call mechanisms
+    implementation 'io.grpc:grpc-stub:1.66.0'
+    
+    // Necessary for Java 9 and newer to resolve compilation annotations (@javax.annotation.Generated)
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53' 
+}
+
+// 5. PROTOBUF CODE GENERATION CONFIGURATION
+// This block configures how Gradle should convert your .proto definitions to Java source files.
+protobuf {
+    // Specifies the protoc compiler executable to download and run
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.3"
+    }
+    // Registers the gRPC-java code generator plugin so it creates the service class stubs
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.66.0'
+        }
+    }
+    // Tells Gradle to apply the gRPC generator plugin to all proto compilation tasks
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                grpc {}
+            }
+        }
+    }
+}
+
+// 6. JAVA TOOLCHAIN SETTINGS
+// Configures the project compilation target. Since you have Java 21, we compile for Java 21 compatibility.
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+// 7. APPLICATION CONFIGURATION
+// Configures the default main class when running the standard run task: ".\gradlew run"
+application {
+    mainClass = 'com.example.grpc.AppServer'
+}
+
+// 8. CUSTOM RUN TASK
+// Defines a custom task to run your gRPC Client. 
+// Run with: ".\gradlew runClient"
+task runClient(type: JavaExec) {
+    // Sets the classpath to include all main runtime classes and libraries
+    classpath = sourceSets.main.runtimeClasspath
+    // Specifies the main client class to execute
+    mainClass = 'com.example.grpc.AppClient'
+    // Connects Gradle standard input to the client console (useful if we want console input)
+    standardInput = System.in
+}
