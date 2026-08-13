@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+// Generate separate files for each generated Java class (e.g. MyRequest, MyResponse)
+option java_multiple_files = true;
+
+// Tells the protobuf compiler to output files into the "org.example" package folder
+// so they can be easily used by AppServer.java and AppClient.java
+option java_package = "org.example";
+
+// Data structure representing the request payload
+message MyRequest {
+  string name = 1;
+}
+
+// Data structure representing the response payload
+message MyResponse {
+  string res = 1;
+}
+
+// The gRPC service interface contract
+service GreetService {
+  // RPC method named "fulfil" taking MyRequest and returning MyResponse
+  rpc fulfil(MyRequest) returns (MyResponse);
+}
