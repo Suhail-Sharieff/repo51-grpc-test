@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="81705d57-b234-4043-8941-a1123cb9ebc4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/example/AppClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/example/AppClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/example/AppServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/example/AppServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="25" />
+    <option name="cachedIndexableFilesCount" value="24" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -59,6 +58,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.CP [:app:org.example.App.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CP [:app:org.example.AppClient.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.CP [:app:org.example.AppServer.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.CP [:com.example.grpc.AppClient.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.CP [:com.example.grpc.AppServer.main()].executor&quot;: &quot;Run&quot;,
@@ -192,7 +192,8 @@
       <updated>1786457838123</updated>
       <workItem from="1786457839272" duration="1907000" />
       <workItem from="1786509117577" duration="2571000" />
-      <workItem from="1786512743459" duration="5688000" />
+      <workItem from="1786512743459" duration="6044000" />
+      <workItem from="1786643772008" duration="1095000" />
     </task>
     <servers />
   </component>

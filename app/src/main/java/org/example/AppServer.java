@@ -3,12 +3,45 @@
  */
 package org.example;
 
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+import io.grpc.stub.StreamObserver;
+
+import java.io.IOException;
+
 public class AppServer {
-    public String getGreeting() {
-        return "Hello World!";
+
+    private final Server myGRPCServer;
+    private static class MyGreetService extends GreetServiceGrpc.GreetServiceImplBase {
+        @Override
+        public void fulfil(MyRequest request, StreamObserver<MyResponse> responseObserver) {
+            String toWhom=request.getName();
+            System.out.println("to greet= "+toWhom);
+            MyResponse res=MyResponse.newBuilder().setRes("hi "+toWhom+" from server" ).build();
+            responseObserver.onNext(res);
+            responseObserver.onCompleted();
+        }
+    }
+    public AppServer() throws IOException, InterruptedException {
+        this.myGRPCServer = ServerBuilder.
+                forPort(8080).
+                addService(new MyGreetService()).
+                build().
+                start();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                myGRPCServer.shutdown().awaitTermination();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }));
+        myGRPCServer.awaitTermination();
     }
 
-    public static void main(String[] args) {
-        System.out.println(new AppServer().getGreeting());
+
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+            new AppServer();
     }
+
 }
