@@ -3,3 +3,5 @@
 - defined ``rootProject.name`` in [settings.gradle](./settings.gradle)
 - write [build.gradle](./app/build.gradle)
 - run ``./gradlew build``, so it reads build.gradle, install plugins and dependencies for us along with protoc compiler, then generates stub classes as per proto file. So if we change proto file, we need to run build command again to get generated classes.
+- Client just creates a Managed channel using the stub classes generated to ther server at its port and blocks channel with timeout while it makes request to server
+- At the grpc server end, i hv also added a shutdown hook to the jvm runtime environment so the shutdown happens gracefully releasing all resources, network ports and channels. Server also extends the stub class to override fulfil method, this supporting custom logic to process request 
